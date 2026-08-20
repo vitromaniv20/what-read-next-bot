@@ -1,0 +1,17 @@
+cyberlibrary-pro/
+├── backend/
+│   ├── config.py          # Config & constants
+│   ├── database.py        # SQLite init + CSV importer (52K rows)
+│   ├── models.py          # Book dataclass
+│   └── repository.py      # Data access layer (indexes, search)
+├── bot/
+│   ├── handlers.py        # Message & callback handlers (FSM)
+│   ├── keyboards.py       # Inline keyboards
+│   ├── localization.py    # EN / UA UI strings
+│   ├── middlewares.py     # Throttling middleware
+│   └── states.py          # FSM states
+├── data/
+│   └── .gitkeep           # Dataset folder (CSV added manually)
+├── main.py                # Entry point
+├── requirements.txt
+└── README.md
