@@ -1,0 +1,15 @@
+# Ініціалізація
+git init
+
+# Додай файли
+git add .
+
+# Перший коміт
+git commit -m "feat: initial release of CyberLibrary PRO bot"
+
+# Підключення до GitHub (заміни NICKNAME)
+git remote add origin https://github.com/ТВІЙ_NICKNAME/cyberlibrary-pro.git
+
+# Push
+git branch -M main
+git push -u origin main
