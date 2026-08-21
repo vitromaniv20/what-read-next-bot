@@ -1,5 +1,0 @@
-BOT_TOKEN=your_telegram_bot_token
-GENAI_API_KEY=your_google_gemini_key
-GEMINI_MODEL=gemini-1.5-flash
-CSV_PATH=./data/books.csv
-DB_PATH=./data/books.db
