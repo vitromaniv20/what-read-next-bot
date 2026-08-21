@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="markmap mm-inyk7t-6" style="width: 100%; height: 100%;"><style>.markmap{--markmap-max-width: 9999px;--markmap-a-color: #0097e6;--markmap-a-hover-color: #00a8ff;--markmap-code-bg: #f0f0f0;--markmap-code-color: #555;--markmap-highlight-bg: #ffeaa7;--markmap-table-border: 1px solid currentColor;--markmap-font: 300 16px/20px sans-serif;--markmap-circle-open-bg: #fff;--markmap-text-color: #333;--markmap-highlight-node-bg: #ff02;font:var(--markmap-font);color:var(--markmap-text-color)}.markmap-link{fill:none}.markmap-node&gt;circle{cursor:pointer}.markmap-foreign{display:inline-block}.markmap-foreign p{margin:0}.markmap-foreign a{color:var(--markmap-a-color)}.markmap-foreign a:hover{color:var(--markmap-a-hover-color)}.markmap-foreign code{padding:.25em;font-size:calc(1em - 2px);color:var(--markmap-code-color);background-color:var(--markmap-code-bg);border-radius:2px}.markmap-foreign pre{margin:0}.markmap-foreign pre&gt;code{display:block}.markmap-foreign del{text-decoration:line-through}.markmap-foreign em{font-style:italic}.markmap-foreign strong{font-weight:700}.markmap-foreign mark{background:var(--markmap-highlight-bg)}.markmap-foreign table,.markmap-foreign th,.markmap-foreign td{border-collapse:collapse;border:var(--markmap-table-border)}.markmap-foreign img{display:inline-block}.markmap-foreign svg{fill:currentColor}.markmap-foreign&gt;div{width:var(--markmap-max-width);text-align:left}.markmap-foreign&gt;div&gt;div{display:inline-block}.markmap-highlight rect{fill:var(--markmap-highlight-node-bg)}.markmap-dark .markmap{--markmap-code-bg: #1a1b26;--markmap-code-color: #ddd;--markmap-circle-open-bg: #444;--markmap-text-color: #eee}</style><g transform="translate(20,258.6610878661088) scale(0.6359832635983264)"><path class="markmap-link" data-depth="3" data-path="1.2.3" d="M359,-198.562C399,-198.562,399,-125.25,439,-125.25" stroke-width="1.375" stroke="rgb(44, 160, 44)"/><path class="markmap-link" data-depth="3" data-path="1.4.5" d="M373,-54.125C413,-54.125,413,-93.875,453,-93.875" stroke-width="1.375" stroke="rgb(227, 119, 194)"/><path class="markmap-link" data-depth="3" data-path="1.4.6" d="M373,-54.125C413,-54.125,413,-67.5,453,-67.5" stroke-width="1.375" stroke="rgb(127, 127, 127)"/><path class="markmap-link" data-depth="3" data-path="1.4.7" d="M373,-54.125C413,-54.125,413,-41.125,453,-41.125" stroke-width="1.375" stroke="rgb(188, 189, 34)"/><path class="markmap-link" data-depth="3" data-path="1.4.8" d="M373,-54.125C413,-54.125,413,-14.75,453,-14.75" stroke-width="1.375" stroke="rgb(23, 190, 207)"/><path class="markmap-link" data-depth="3" data-path="1.9.10" d="M375,220.313C415,220.313,415,423.625,455,423.625" stroke-width="1.375" stroke="rgb(255, 127, 14)"/><path class="markmap-link" data-depth="2" data-path="1.2" d="M173,11.25C213,11.25,213,-198.562,253,-198.562" stroke-width="1.75" stroke="rgb(255, 127, 14)"/><path class="markmap-link" data-depth="2" data-path="1.4" d="M173,11.25C213,11.25,213,-54.125,253,-54.125" stroke-width="1.75" stroke="rgb(140, 86, 75)"/><path class="markmap-link" data-depth="2" data-path="1.9" d="M173,11.25C213,11.25,213,220.313,253,220.313" stroke-width="1.75" stroke="rgb(31, 119, 180)"/><g class="markmap-highlight"/><g data-depth="3" data-path="1.2.3" class="markmap-node" transform="translate(439, -292.9375)"><line stroke="#2ca02c" stroke-width="1.375" x1="-1" x2="758" y1="167.6875" y2="167.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="740" height="167"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><table data-lines="14,23">
+<thead data-lines="14,15">
+<tr data-lines="14,15">
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody data-lines="16,23">
+<tr data-lines="16,17">
+<td>📖 <strong>Genre Browser</strong></td>
+<td>8 категорій: Sci-Fi, Fantasy, Romance, Mystery, Historical, YA, Horror, Non-Fiction</td>
+</tr>
+<tr data-lines="17,18">
+<td>🔍 <strong>Local Search</strong></td>
+<td>Full-text пошук по назві та автору в SQLite (52K+ записів)</td>
+</tr>
+<tr data-lines="18,19">
+<td>🌐 <strong>Global AI Search</strong></td>
+<td>Пошук книг через Google Gemini AI за описом сюжету</td>
+</tr>
+<tr data-lines="19,20">
+<td>💬 <strong>AI Critics</strong></td>
+<td>Глибокий діалог з AI про сюжет, персонажів та філософію книги</td>
+</tr>
+<tr data-lines="20,21">
+<td>⭐ <strong>Bookmarks</strong></td>
+<td>Персональні закладки користувача</td>
+</tr>
+<tr data-lines="21,22">
+<td>🎲 <strong>Random Mix</strong></td>
+<td>Випадкова підбірка з можливістю оновлення</td>
+</tr>
+<tr data-lines="22,23">
+<td>🌐 <strong>Bilingual</strong></td>
+<td>Підтримка 🇺🇦 Української та 🇬🇧 Англійської</td>
+</tr>
+</tbody>
+</table></div></div></foreignObject></g><g data-depth="2" data-path="1.2" class="markmap-node" transform="translate(253, -219.4375)"><line stroke="#ff7f0e" stroke-width="1.75" x1="-1" x2="108" y1="20.875" y2="20.875"/><circle stroke-width="1.5" r="6" stroke="#ff7f0e" fill="var(--markmap-circle-open-bg)" cx="106" cy="20.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="90" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">✨ Features</div></div></foreignObject></g><g data-depth="3" data-path="1.4.5" class="markmap-node" transform="translate(453, -114.5625)"><line stroke="#e377c2" stroke-width="1.375" x1="-1" x2="359" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="341" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><strong>Aiogram 3.x</strong> — асинхронний Telegram Bot API</div></div></foreignObject></g><g data-depth="3" data-path="1.4.6" class="markmap-node" transform="translate(453, -88.1875)"><line stroke="#7f7f7f" stroke-width="1.375" x1="-1" x2="426" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="408" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><strong>Google Gemini</strong> — AI для пошуку та критичного аналізу</div></div></foreignObject></g><g data-depth="3" data-path="1.4.7" class="markmap-node" transform="translate(453, -61.8125)"><line stroke="#bcbd22" stroke-width="1.375" x1="-1" x2="442" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="424" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><strong>SQLite + Pandas</strong> — імпорт та обробка 50K+ CSV-записів</div></div></foreignObject></g><g data-depth="3" data-path="1.4.8" class="markmap-node" transform="translate(453, -35.4375)"><line stroke="#17becf" stroke-width="1.375" x1="-1" x2="402" y1="20.6875" y2="20.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="384" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><strong>FSM (Finite State Machine)</strong> — керування діалогами</div></div></foreignObject></g><g data-depth="2" data-path="1.4" class="markmap-node" transform="translate(253, -75)"><line stroke="#8c564b" stroke-width="1.75" x1="-1" x2="122" y1="20.875" y2="20.875"/><circle stroke-width="1.5" r="6" stroke="#8c564b" fill="var(--markmap-circle-open-bg)" cx="120" cy="20.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="104" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">🏗️ Tech Stack</div></div></foreignObject></g><g data-depth="3" data-path="1.9.10" class="markmap-node" transform="translate(455, -4.0625)"><line stroke="#ff7f0e" stroke-width="1.375" x1="-1" x2="429" y1="427.6875" y2="427.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="411" height="427"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><pre data-lines="37,59"><code class="language-bash"><span class="hljs-comment"># 1. Clone</span>
+git <span class="hljs-built_in">clone</span> https://github.com/ТВІЙ_NICKNAME/cyberlibrary-pro.git
+<span class="hljs-built_in">cd</span> cyberlibrary-pro
+
+<span class="hljs-comment"># 2. Virtual environment</span>
+python -m venv .venv
+<span class="hljs-built_in">source</span> .venv/bin/activate  <span class="hljs-comment"># Linux/Mac</span>
+<span class="hljs-comment"># .venv\Scripts\activate   # Windows</span>
+
+<span class="hljs-comment"># 3. Dependencies</span>
+pip install -r requirements.txt
+
+<span class="hljs-comment"># 4. Environment</span>
+<span class="hljs-built_in">cp</span> .env.example .<span class="hljs-built_in">env</span>
+<span class="hljs-comment"># Edit .env with your BOT_TOKEN and GENAI_API_KEY</span>
+
+<span class="hljs-comment"># 5. Add dataset</span>
+<span class="hljs-comment"># Place your books.csv into data/ folder</span>
+
+<span class="hljs-comment"># 6. Run</span>
+python main.py</code></pre></div></div></foreignObject></g><g data-depth="2" data-path="1.9" class="markmap-node" transform="translate(253, 199.4375)"><line stroke="#1f77b4" stroke-width="1.75" x1="-1" x2="124" y1="20.875" y2="20.875"/><circle stroke-width="1.5" r="6" stroke="#1f77b4" fill="var(--markmap-circle-open-bg)" cx="122" cy="20.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="106" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">🚀 Quick Start</div></div></foreignObject></g><g data-depth="1" data-path="1" class="markmap-node" transform="translate(0, -10)"><line stroke="#1f77b4" stroke-width="2.5" x1="-1" x2="175" y1="21.25" y2="21.25"/><circle stroke-width="1.5" r="6" stroke="#1f77b4" fill="var(--markmap-circle-open-bg)" cx="173" cy="21.25"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="157" height="20"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">📚 CyberLibrary PRO</div></div></foreignObject></g></g></svg>
