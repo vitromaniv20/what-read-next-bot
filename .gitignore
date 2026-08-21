@@ -13,8 +13,6 @@ ENV/
 *.env
 
 # Database (auto-generated)
-*.db
-*.sqlite
 *.sqlite3
 
 # IDE
