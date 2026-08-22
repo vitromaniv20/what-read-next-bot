@@ -25,6 +25,14 @@ def _esc(text: str) -> str:
     return html.escape(str(text)) if text else ""
 
 
+async def _safe_callback_answer(callback: CallbackQuery, text: str = None, show_alert: bool = False):
+    """Safely answer callback, ignoring expired queries."""
+    try:
+        await callback.answer(text=text, show_alert=show_alert)
+    except Exception:
+        pass
+
+
 async def _show_book_detail(message: Message, state: FSMContext, book_id: int, from_favorites: bool):
     lang = await get_lang(state)
     ui = LANG_UI[lang]
@@ -82,7 +90,7 @@ async def _gemini_generate(contents: str, system_instruction: str) -> str:
 
 
 # ═════════════════════════════════════════════════════════════════════
-#  HANDLER FUNCTIONS (no decorators — all registered in register_handlers)
+#  HANDLER FUNCTIONS
 # ═════════════════════════════════════════════════════════════════════
 
 async def cmd_start(message: Message, state: FSMContext):
@@ -121,7 +129,7 @@ async def cmd_help(message: Message, state: FSMContext):
 
 
 async def callback_favorites(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     lang = await get_lang(state)
     ui = LANG_UI[lang]
     books = repo.get_favorites(callback.from_user.id)
@@ -133,13 +141,13 @@ async def callback_favorites(callback: CallbackQuery, state: FSMContext):
 
 
 async def go_to_genres(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     await state.set_state(BookBotStates.choosing_mode)
     await render_genres_menu(callback.message, state, edit=True)
 
 
 async def handle_genre_selection(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     genre_name = callback.data.replace("targetgenre_", "")
     await state.update_data(current_genre=genre_name, current_offset=0)
     await render_books_list(callback.message, state, genre_name, offset=0)
@@ -159,7 +167,7 @@ async def render_books_list(message: Message, state: FSMContext, genre: str, off
 
 
 async def process_pagination(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     new_offset = int(callback.data.split("_")[1])
     data = await state.get_data()
     genre = data.get("current_genre")
@@ -169,19 +177,19 @@ async def process_pagination(callback: CallbackQuery, state: FSMContext):
 
 
 async def show_random_books(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     lang = await get_lang(state)
     ui = LANG_UI[lang]
     books = repo.get_random_books(5)
     if not books:
-        await callback.answer(ui["feed_empty"], show_alert=True)
+        await _safe_callback_answer(callback, ui["feed_empty"], show_alert=True)
         return
     keyboard = kb.get_random_books_keyboard(books, lang)
     await safe_edit_text(callback.message, ui["rand_title"], reply_markup=keyboard)
 
 
 async def show_local_book_details(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     book_id = int(callback.data.split("_")[-1])
     from_favorites = callback.data.startswith("favbook_")
     await state.update_data(from_favorites=from_favorites)
@@ -189,7 +197,7 @@ async def show_local_book_details(callback: CallbackQuery, state: FSMContext):
 
 
 async def return_to_list(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     offset = int(callback.data.split("_")[3])
     data = await state.get_data()
     genre = data.get("current_genre")
@@ -198,13 +206,13 @@ async def return_to_list(callback: CallbackQuery, state: FSMContext):
 
 
 async def handle_discussion_entry(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     book_id = int(callback.data.split("_")[2])
     lang = await get_lang(state)
     ui = LANG_UI[lang]
     book = repo.get_book_by_id(book_id)
     if not book:
-        await callback.answer(ui["err_empty"], show_alert=True)
+        await _safe_callback_answer(callback, ui["err_empty"], show_alert=True)
         return
     await state.set_state(BookBotStates.in_discussion_with_ai)
     await state.update_data(discussion_book_id=book_id, ai_history=[])
@@ -215,13 +223,13 @@ async def handle_discussion_entry(callback: CallbackQuery, state: FSMContext):
 
 
 async def handle_discussion_exit(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     book_id = int(callback.data.split("_")[3])
     lang = await get_lang(state)
     ui = LANG_UI[lang]
     book = repo.get_book_by_id(book_id)
     if not book:
-        await callback.answer(ui["err_empty"], show_alert=True)
+        await _safe_callback_answer(callback, ui["err_empty"], show_alert=True)
         return
     await state.set_state(BookBotStates.choosing_mode)
     await state.update_data(discussion_book_id=None, ai_history=[])
@@ -268,7 +276,7 @@ async def process_db_book_discussion(message: Message, state: FSMContext):
 
 
 async def init_global_ai_search_mode(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     lang = await get_lang(state)
     ui = LANG_UI[lang]
     await state.set_state(BookBotStates.waiting_global_title)
@@ -309,12 +317,12 @@ async def handle_global_book_search(message: Message, state: FSMContext):
 
 
 async def start_deep_ai_critics_discussion(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     idx = int(callback.data.split("_")[3])
     data = await state.get_data()
     books = data.get("global_ai_books", [])
     if not books or idx >= len(books):
-        await callback.answer("Error", show_alert=True)
+        await _safe_callback_answer(callback, "Error", show_alert=True)
         return
     target_book = books[idx]
     await state.set_state(BookBotStates.in_global_ai_critics)
@@ -359,7 +367,7 @@ async def process_global_book_discussion(message: Message, state: FSMContext):
 
 
 async def init_local_search(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     lang = await get_lang(state)
     ui = LANG_UI[lang]
     await state.set_state(BookBotStates.waiting_local_search_query)
@@ -380,23 +388,23 @@ async def process_local_search(message: Message, state: FSMContext):
 
 
 async def add_to_favorites(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     book_id = int(callback.data.split("_")[3])
     repo.add_to_favorite(callback.from_user.id, book_id)
     lang = await get_lang(state)
     ui = LANG_UI[lang]
-    await callback.answer(ui["fav_added"], show_alert=True)
+    await _safe_callback_answer(callback, ui["fav_added"], show_alert=True)
     data = await state.get_data()
     await _show_book_detail(callback.message, state, book_id, data.get("from_favorites", False))
 
 
 async def remove_from_favorites(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     book_id = int(callback.data.split("_")[-1])
     repo.remove_favorite(callback.from_user.id, book_id)
     lang = await get_lang(state)
     ui = LANG_UI[lang]
-    await callback.answer(ui["fav_removed"], show_alert=True)
+    await _safe_callback_answer(callback, ui["fav_removed"], show_alert=True)
     data = await state.get_data()
     if data.get("from_favorites"):
         await callback_favorites(callback, state)
@@ -405,30 +413,28 @@ async def remove_from_favorites(callback: CallbackQuery, state: FSMContext):
 
 
 async def change_lang_callback(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     keyboard = kb.get_language_keyboard()
     await safe_edit_text(callback.message, "Please select your language / Оберіть мову:", reply_markup=keyboard)
 
 
 async def set_language(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
+    await _safe_callback_answer(callback)
     selected_lang = callback.data.split("_")[1]
     await state.update_data(lang=selected_lang)
-    await callback.answer(f"Language set to {selected_lang.upper()}")
+    await _safe_callback_answer(callback, f"Language set to {selected_lang.upper()}")
     await render_genres_menu(callback.message, state, edit=True)
 
 
 # ═════════════════════════════════════════════════════════════════════
-#  REGISTRATION — all handlers registered here, no decorators
+#  REGISTRATION
 # ═════════════════════════════════════════════════════════════════════
 def register_handlers(dispatcher: Dispatcher):
-    # Commands
     dispatcher.message.register(cmd_start, Command("start"))
     dispatcher.message.register(cmd_search, Command("search"))
     dispatcher.message.register(cmd_favorites, Command("favorites"))
     dispatcher.message.register(cmd_help, Command("help"))
 
-    # Callbacks
     dispatcher.callback_query.register(go_to_genres, F.data == "action_go_to_genres")
     dispatcher.callback_query.register(handle_genre_selection, F.data.startswith("targetgenre_"))
     dispatcher.callback_query.register(process_pagination, F.data.startswith("paginate_"))
@@ -447,7 +453,6 @@ def register_handlers(dispatcher: Dispatcher):
     dispatcher.callback_query.register(set_language, F.data.startswith("setlang_"))
     dispatcher.callback_query.register(callback_favorites, F.data == "action_my_favorites")
 
-    # State-based message handlers — THE FIX
     dispatcher.message.register(process_db_book_discussion, StateFilter(BookBotStates.in_discussion_with_ai))
     dispatcher.message.register(handle_global_book_search, StateFilter(BookBotStates.waiting_global_title))
     dispatcher.message.register(process_local_search, StateFilter(BookBotStates.waiting_local_search_query))
