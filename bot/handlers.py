@@ -33,20 +33,6 @@ async def _safe_callback_answer(callback: CallbackQuery, text: str = None, show_
         pass
 
 
-async def _show_book_detail(message: Message, state: FSMContext, book_id: int, from_favorites: bool):
-    lang = await get_lang(state)
-    ui = LANG_UI[lang]
-    book = repo.get_book_by_id(book_id)
-    if not book:
-        await message.answer(ui["err_empty"])
-        return
-    is_fav = repo.is_favorite(message.from_user.id, book_id)
-    back_callback = "action_my_favorites" if from_favorites else "return_to_list_0"
-    keyboard = kb.get_book_detail_keyboard(book, lang, is_fav, back_callback)
-    text = ui["book_card"].format(title=_esc(book.title), author=_esc(book.author), desc=book.short_description)
-    await safe_edit_text(message, text, reply_markup=keyboard)
-
-
 async def get_lang(state: FSMContext) -> str:
     data = await state.get_data()
     return data.get("lang", "uk")
@@ -86,7 +72,49 @@ async def _gemini_generate(contents: str, system_instruction: str) -> str:
         return response.text
     except Exception as e:
         print(f"❌ GEMINI ERROR: {type(e).__name__}: {e}")
-        raise  # пробросимо далі, щоб хендлер показав err_api
+        raise
+
+
+# ═════════════════════════════════════════════════════════════════════
+#  MENU & LIST RENDERERS
+# ═════════════════════════════════════════════════════════════════════
+
+async def render_genres_menu(message: Message, state: FSMContext, edit: bool = False):
+    lang = await get_lang(state)
+    ui = LANG_UI[lang]
+    keyboard = kb.get_genres_keyboard(lang)
+    text = ui.get("menu_title", "📚 <b>CyberLibrary PRO</b>\n\nОберіть жанр / Choose a genre:")
+    if edit:
+        await safe_edit_text(message, text, reply_markup=keyboard)
+    else:
+        await message.answer(text, reply_markup=keyboard, parse_mode="HTML")
+
+
+async def render_books_list(message: Message, state: FSMContext, genre: str, offset: int):
+    lang = await get_lang(state)
+    ui = LANG_UI[lang]
+    books = repo.get_books_by_genre(genre, offset=offset)
+    total_count = repo.get_books_count_by_genre(genre)
+    if not books:
+        await safe_edit_text(message, ui["feed_empty"], reply_markup=kb.get_back_to_menu_keyboard(lang))
+        return
+    keyboard = kb.get_books_keyboard(books, lang, offset, total_count)
+    title_text = ui["feed_title"].format(genre=genre.upper().replace('_', ' '), count=total_count)
+    await safe_edit_text(message, title_text, reply_markup=keyboard)
+
+
+async def _show_book_detail(message: Message, state: FSMContext, book_id: int, from_favorites: bool):
+    lang = await get_lang(state)
+    ui = LANG_UI[lang]
+    book = repo.get_book_by_id(book_id)
+    if not book:
+        await message.answer(ui["err_empty"])
+        return
+    is_fav = repo.is_favorite(message.from_user.id, book_id)
+    back_callback = "action_my_favorites" if from_favorites else "return_to_list_0"
+    keyboard = kb.get_book_detail_keyboard(book, lang, is_fav, back_callback)
+    text = ui["book_card"].format(title=_esc(book.title), author=_esc(book.author), desc=book.short_description)
+    await safe_edit_text(message, text, reply_markup=keyboard)
 
 
 # ═════════════════════════════════════════════════════════════════════
@@ -151,19 +179,6 @@ async def handle_genre_selection(callback: CallbackQuery, state: FSMContext):
     genre_name = callback.data.replace("targetgenre_", "")
     await state.update_data(current_genre=genre_name, current_offset=0)
     await render_books_list(callback.message, state, genre_name, offset=0)
-
-
-async def render_books_list(message: Message, state: FSMContext, genre: str, offset: int):
-    lang = await get_lang(state)
-    ui = LANG_UI[lang]
-    books = repo.get_books_by_genre(genre, offset=offset)
-    total_count = repo.get_books_count_by_genre(genre)
-    if not books:
-        await safe_edit_text(message, ui["feed_empty"], reply_markup=kb.get_back_to_menu_keyboard(lang))
-        return
-    keyboard = kb.get_books_keyboard(books, lang, offset, total_count)
-    title_text = ui["feed_title"].format(genre=genre.upper().replace('_', ' '), count=total_count)
-    await safe_edit_text(message, title_text, reply_markup=keyboard)
 
 
 async def process_pagination(callback: CallbackQuery, state: FSMContext):
